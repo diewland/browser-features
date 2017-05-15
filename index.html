@@ -1,17 +1,41 @@
-<div id='out'>
-<script>
-  var feature_list = [
-    [ 'CacheStorage', 'caches' ],
-    [ 'ServiceWorker', 'navigator.serviceWorker' ],
-  ];
-  for(var i=0; i<feature_list.length; i++){
-    var f = feature_list[i];
-    try {
-      eval(f[1]);
-      document.getElementById('out').innerHTML += f[0] + ": OK<br>";
-    }
-    catch(err){
-      document.getElementById('out').innerHTML += f[0] + ": "+ err +"<br>";
-    }
-  }
-</script>
+<!DOCTYPE html>
+<html>
+  <head>
+<meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content='Check some javascripts work on your browser'>
+    <title>Browser Features</title>
+  </head>
+  <body>
+
+    <div id='agent'></div>
+    <hr>
+    <div id='result'></div>
+
+    <script>
+      // update user agent
+      document.getElementById('agent').innerHTML = navigator.userAgent;
+
+      // check feature list
+      var feature_list = [
+        [ 'CacheStorage', 'caches' ],
+        [ 'ServiceWorker', 'navigator.serviceWorker' ],
+        [ 'MediaDevices', 'navigator.mediaDevices' ],
+        [ 'MediaDevices.getUserMedia()', 'navigator.mediaDevices.getUserMedia' ],
+        [ 'MediaDevices.enumerateDevices()', 'navigator.mediaDevices.enumerateDevices' ],
+      ];
+      for(var i=0; i<feature_list.length; i++){
+        var f = feature_list[i];
+        try {
+          eval(f[1]);
+          document.getElementById('result').innerHTML += f[0] + ": OK<br>";
+        }
+        catch(err){
+          document.getElementById('result').innerHTML += f[0] + ": "+ err +"<br>";
+        }
+      }
+    </script>
+
+  </body>
+</html>
