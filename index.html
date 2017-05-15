@@ -1,0 +1,17 @@
+<div id='out'>
+<script>
+  var feature_list = [
+    [ 'CacheStorage', 'caches' ],
+    [ 'ServiceWorker', 'navigator.serviceWorker' ],
+  ];
+  for(var i=0; i<feature_list.length; i++){
+    var f = feature_list[i];
+    try {
+      eval(f[1]);
+      document.getElementById('out').innerHTML += f[0] + ": OK<br>";
+    }
+    catch(err){
+      document.getElementById('out').innerHTML += f[0] + ": "+ err +"<br>";
+    }
+  }
+</script>
