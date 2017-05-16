@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+<meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content='Check some javascripts work on your browser'>
+    <title>Browser Features</title>
+  </head>
+  <body>
+
+    <pre id='result'></pre>
+
+    <script>
+
+      function log(msg){
+        document.getElementById('result').innerHTML += msg + '\n';
+      }
+
+      caches.keys().then(function(keylist){
+        log('found '+ keylist.length +' cached(s)');
+        return Promise.all(keylist.map(function(k){
+          return caches.delete(k);
+        }));
+      }).then(function(){
+        log('cleared cached(s)');
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          log('found '+ registrations.length +' service-worker(s)');
+          for(var registration in registrations) {
+            log('\tL '+ registration);
+            registration.unregister();
+          }
+        });
+      }).then(function(){
+        log('unregistered service workers');
+      });
+
+
+    </script>
+
+  </body>
+</html>
