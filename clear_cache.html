@@ -14,9 +14,7 @@
 
     <script>
 
-      function log(msg){
-        document.getElementById('result').innerHTML += msg + '\n';
-      }
+      function log(msg){ document.getElementById('result').innerHTML += msg + '\n'; }
 
       caches.keys().then(function(keylist){
         log('found '+ keylist.length +' cached(s)');
@@ -25,18 +23,17 @@
         }));
       }).then(function(){
         log('cleared cached(s)');
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        return navigator.serviceWorker.getRegistrations().then(function(registrations) {
           log('found '+ registrations.length +' service-worker(s)');
-          for(let registration of registrations) {
-            console.log(registration);
-            log('\tL '+ registration.scope);
-            registration.unregister();
-          }
+          return Promise.all(registrations.map(function(r){
+            console.log(r);
+            log('\tL '+ r.scope);
+            r.unregister();
+          }));
         });
       }).then(function(){
         log('unregistered service workers');
       });
-
 
     </script>
 
