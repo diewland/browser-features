@@ -27,7 +27,8 @@
         log('cleared cached(s)');
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
           log('found '+ registrations.length +' service-worker(s)');
-          for(var registration in registrations) {
+          for(let registration of registrations) {
+            console.log(registration);
             log('\tL '+ registration);
             registration.unregister();
           }
