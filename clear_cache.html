@@ -29,7 +29,7 @@
           log('found '+ registrations.length +' service-worker(s)');
           for(let registration of registrations) {
             console.log(registration);
-            log('\tL '+ registration);
+            log('\tL '+ registration.scope);
             registration.unregister();
           }
         });
